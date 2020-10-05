@@ -1,0 +1,20 @@
+<div class="bg-white border" *ngIf="(photo$ | async) as photo">
+  <!-- só será exibido quando photo tiver um valor, então eu posso tirar as 'safes navigation', '?', que não dará erros, e o if lá do componente photo -->
+  <div class="row">
+    <div class="col-lg-8">
+      <ap-photo [url]="photo?.url"
+        [description]="photo?.description">
+      </ap-photo>
+    </div>
+
+    <div class="col-lg-4 p-4">
+      <small>
+        <p class="text-left break-word">{{photo?.description}}</p>
+        <hr>
+      </small>
+
+      <app-photo-comments [photoId]="photoId">
+      </app-photo-comments>
+    </div>
+  </div>
+</div>

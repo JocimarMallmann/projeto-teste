@@ -1,0 +1,20 @@
+<div class="text-center mt-3 mb-3">
+    <form>
+        <i aria-hidden="true" class="fa fa-search mr-2"></i> <!-- aria-hidden="true" -> indicação para leitores de tela ignorarem esse ícone -->
+        <input
+            class="rounded"
+            type="search"
+            placeholder="search..."
+            autofocus
+            [value]="filterValue"
+            (input)="debounce.next($event.target.value)">
+    </form>
+    <!-- 
+        Ao invés de fazermos isso: (input)="filter = $event.target.value"
+        vamos fazer: (input)="debounce.next($event.target.value)"
+        Por meio de next(), é possível emitirmos um valor para Subject, que acessamos caso o tenhamos inscrito. Diferentemente do Observable, com o qual podemos inscrever e obter valores, com o Subject podemos, além disso, emitir um valor e escutá-lo. A CADA input mudança de valor O next(), VAI EMITIR UM VALOR PARA SER ESCUTADO
+     -->
+    <div>
+        {{ filterValue | uppercase }}
+    </div>
+</div>

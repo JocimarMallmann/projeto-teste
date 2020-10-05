@@ -1,0 +1,38 @@
+<h4 class="text-center">Login</h4>
+
+<form class="form mt-4" [formGroup]="loginForm" (submit)="login()">
+
+    <div class="form-group">
+        <input #userNameInput
+            class="form-control"
+            placeholder="user name"
+            autofocus
+            formControlName="userName" /> <!-- interligando as variáveis do formBuilder com formControlName -->
+        <app-vmessage
+                  *ngIf="loginForm.get('userName').errors?.required"
+                  [message]="'User name is required!'">
+        </app-vmessage>
+    </div>
+
+    <div class="form-group">
+        <input
+            type="password"
+            class="form-control"
+            placeholder="password"
+            formControlName="password" />
+        <app-vmessage
+                  *ngIf="loginForm.get('password').errors?.required"
+                  [message]="'Password is required!'">
+        </app-vmessage>
+    </div>
+
+    <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="loginForm.invalid"> <!-- O loginForm vai saber dizer se tem campos inválidos dentro -->
+        login
+    </button>
+
+</form>
+
+<p>Not a user?<a [routerLink]="['signup']"> Register now</a></p>

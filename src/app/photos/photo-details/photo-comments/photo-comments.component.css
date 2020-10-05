@@ -1,0 +1,5 @@
+.comment-list {
+  height: 50vh; /** pego 50% do viewport */
+  /** colocamos vh, porque se colocarmos o valor em % o overflow não funciona corretamente com medida em percentual */
+  overflow-y: auto;
+}

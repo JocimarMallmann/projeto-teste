@@ -1,0 +1,13 @@
+<ap-search
+    [filterValue]='filter'
+    (filterFilho)="filter = $event"> <!-- atraves desse @Output estou emitindo o valor do search para a variável filter de photo-list -->
+</ap-search>
+
+<ap-photos [photos]="photos"></ap-photos> <!--  | filterByDescription: filter -->
+<!-- Aprendemos que Pipes ("tubos", em português) podem gerar transformações nos dados, e que podemos criar os nossos. Para que seja um Pipe, sua classe deve ser anotada com o decorator @Pipe, além de implementar o método transform(), que possui determinada assinatura (parâmetros). -->
+<!--
+    [] -> componente pra view
+    () -> view para o componente
+-->
+
+<ap-load-button (click)="load()" [hasMore]="hasMore"></ap-load-button>

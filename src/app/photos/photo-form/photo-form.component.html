@@ -1,0 +1,71 @@
+<!-- Sobre variável de templates -->
+<!--
+  Quando adicionada em um elemento do DOM, ela nos dará acesso ao elemento. Quando adicionada em um componente, nos dará acesso ao componente permitindo invocar métodos e acessar suas propriedades.
+ -->
+<div class="container">
+  <form class="row" [formGroup]="photoForm" (submit)="upload()">
+    <div class="col-md-6 text-center">
+      <div class="form-group"
+        *ngIf="!preview; else previewImage;"> <!-- só vou exibir, se não tiver foto selecionada ainda -->
+        <!-- quando eu clicar nesse botão, o input escondido será invocado -->
+        <button type="button"
+          class="btn btn-primary"
+          (click)="fileInput.click()"
+          immediateClick > <!-- diretiva que nós criamos, ao renderizar o componente esse button será clicado sozinho -->
+          <!-- invocando o click() do elemento input -->
+          <i class="fa fa-image fa-4x align-middle"></i>
+        </button>
+        <!-- propriedade hidden, do próprio html -->
+        <input
+          #fileInput
+          hidden
+          type="file"
+          accept="image/*"
+          formControlName="file"
+          (change)="handleFile($event.target.files[0])" /> <!-- E nessa função vamos converter pra base64 para realizarmos o preview -->
+          <!-- (change)="file = $event.target.files[0]" (isso foi mudado por canta de criar um preview da imagem)
+            faremos um eventbind para o evento change. Quando essa mudança ocorrer, diremos que file receberá $event.target.files[0]. Quando selecionamos um arquivo, o evento change irá disparar o $event, que por sua vez terá como target o próprio input. E como estamos lindando com um evento disparado de um input file, existe a propriedade files, um array com todos os arquivos selecionados pelo usuário. Estamos definindo para que se colete o arquivo na posição [0] -->
+        <app-vmessage
+          *ngIf="photoForm.get('file').errors?.required"
+          [message]="'Please, select a photo'">
+        </app-vmessage>
+      </div>
+      <ng-template #previewImage>
+        <div class="text-center">
+          <ap-photo [url]="preview" [title]="'Preview'"></ap-photo>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <textarea
+          formControlName="description"
+          class="form-control form-control-sm"
+          placeholder="photo description"></textarea>
+        <app-vmessage
+          *ngIf="photoForm.get('description').errors?.maxlength"
+          [message]="'Max length is 300'">
+        </app-vmessage>
+      </div>
+
+      <div class="form-group">
+        <label class="text-muted">
+          Allow comments
+          <input formControlName="allowComments" type="checkbox" />
+        </label>
+      </div>
+
+      <button type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="photoForm.invalid">
+        Upload
+      </button>
+
+      <a class="btn btn-secondary btn-block"
+        [routerLink]="['']">
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>

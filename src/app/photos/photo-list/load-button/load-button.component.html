@@ -1,0 +1,7 @@
+<div class="text-center" *ngIf="hasMore; else messageTemplate"> <!-- Assim fazemos o if(){} else {} -->
+    <button class="btn btn-primary">Load more</button>
+</div>
+<!-- O TEMPLATE QUE VAI ESTAR NO else, TEM QUE ESTAR DENTRO DO ng-template, pra ficar entendível -->
+<ng-template #messageTemplate> <!-- variável de template, funciona como o id="" no html -->
+    <p class="text-center text-muted">No more data to load</p>
+</ng-template>

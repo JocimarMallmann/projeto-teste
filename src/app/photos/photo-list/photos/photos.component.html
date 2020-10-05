@@ -1,0 +1,26 @@
+<p class="text-center text-muted" *ngIf="!photos.length">
+    Sorry, no photos
+</p>
+
+<!-- Componente criado para ser especializado em exibir o photo-list numa grid do bootstrap -->
+<ol class="list-unstyled">
+    <li *ngFor="let cols of rows" class="row justify-content-center"> <!-- cada LI será uma linha -->
+        <div *ngFor="let col of cols" apDarkenOnHover brightness="90%"> <!-- array de arrays -->
+          <a [routerLink]="['/p', col.id]"> <!-- passando o id da photo, para a navegação routerLink -->
+            <!-- Quando coloco o /, na frente, ele volta lá pra raiz do routing, e não da continuidade a rota atual -->
+            <ap-card [title]="col.description">
+                <div class="selector1">
+                    <ap-photo
+                            [url]="col.url"
+                            [description]="col.description">
+                    </ap-photo>
+                    <div class="text-center p-1">
+                        <i aria-hidden="true" class="fa fa-heart-o fa-1x mr-2"></i>{{ col.likes }}
+                        <i aria-hidden="true" class="fa fa-comment-o fa-1x mr-2 ml-2"></i>{{ col.comments }}
+                    </div>
+                </div>
+            </ap-card>
+          </a>
+        </div>
+    </li>
+</ol>
